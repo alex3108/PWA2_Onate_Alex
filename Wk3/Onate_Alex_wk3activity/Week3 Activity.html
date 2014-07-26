@@ -1,0 +1,46 @@
+<!doctype html><!-- html5 format -->
+<html lang="en"><!-- language -->
+<head><!-- head tag -->
+  <meta charset="utf-8"><!-- Character Set = Unicode Transformation Format-8. -->
+  <title>jQuery.getJSON demo</title><!-- title tag -->
+  <style><!-- css style sheet -->
+  img {             /* img id "height & float" 	*/
+    height: 100px;
+    float: left;
+  }
+  </style><!-- css style sheet end -->
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script><!-- javascript "jquery-link" -->
+</head><!-- end of head tag -->
+<body><!-- body tag -->
+<div id="images"></div><!-- img id -->
+<script> <!-- javascript tag -->
+(function() {  /* javascript function */ 
+               /* variable of flicker api intergrate with .getJSON */
+			   /* flick.com*/ 
+			   /* attribute effects*/ 
+			   /* accessing the data with .done function & data*/ 
+			   /* using $.each(data.item, function to callback the function of getJASON*/ 
+			   /* accessing the data with .done function & data*/
+			   /* accessing the imgs with .appenTo to insert html element*/  
+			   /* using === operator*/
+			   /* using logical operator "return false"*/
+			   /* closing tags })();*/
+  var flickerAPI = "http://api.flickr.com/services/feeds/photos_public...
+  $.getJSON( flickerAPI, { 
+    tags: "mount rainier",
+    tagmode: "any",
+    format: "json"
+  })
+  
+    .done(function( data ) {
+      $.each( data.items, function( i, item ) {
+        $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
+        if ( i === 3 ) {
+          return false;
+        }
+      });
+    });
+})();
+</script>
+</body>
+</html>
