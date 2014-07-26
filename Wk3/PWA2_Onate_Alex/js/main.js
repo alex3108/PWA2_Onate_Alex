@@ -25,11 +25,22 @@
 					console.log("test user");
 					if (response.error)
 				} else{
-					window.location.assign('Admin.html')
+					window.location.assign('admin.html')
 		   };
 	    }
 	 });
 });
+	
+	/*
+	===============================================
+      Logout ========================= 
+	*/
+	$('#logOut').click(function(e){
+		e.preventDefault;
+		$.get('xhr/logout.php' function(){
+			window.location.assign('index.html')
+		})
+	});
 	
 	
 	
@@ -82,7 +93,7 @@
 				if(response.error) {
 					alert(response.error);
 				}else{
-					window.location.assign('Admin.html')
+					window.location.assign('admin.html')
 				};
 			}
 		});
@@ -117,7 +128,7 @@
 			if (response.error){
 				alert(response.error);
 			}else{
-				window.location.assign('Admin.html');
+				window.location.assign('admin.html');
 			}
 		}
 	});
@@ -130,7 +141,7 @@
 
 $('.projectsbtn').on('click',function(e) {
 	e.preventDefault();
-	window.location.assign('Projects.html');
+	window.location.assign('projects.html');
 });
 
 /*
@@ -186,6 +197,8 @@ $('#tabs-nav .current').removeClass("current");
    
    $('#tabs ' + clicked).fadeIn('fast');
 }).eq(0).addClass('current');
+
+})(jQuery);
 
 
 

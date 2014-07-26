@@ -5,35 +5,6 @@
 
 (function($){
 	
-	/*
-	===============================================
-      login ========================= 
-	*/
-	 $('#signinButton').click(function(){
-		 var user = $('#user').val();
-		 var pass = $('#pass').val();
-		 console.log("This notifies you if the password is working")
-		    $.ajax({
-				url:'xhr/login.php',
-				type; 'post',
-				dataType: 'json',
-				data: {
-					username: user,
-					password: pass
-				},
-				success:function(response{
-					console.log("test user");
-					if (response.error)
-				} else{
-					window.location.assign('Admin.html')
-		   };
-	    }
-	 });
-});
-	
-	
-	
-	
 	
 	/*
 	===============================================
