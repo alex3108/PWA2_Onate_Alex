@@ -22,7 +22,7 @@
 					password: pass
 				},
 				success:function(response){  //Forgot closing parethesis.
-					console.log("test user")
+					console.log("Test User");
 					if (response.error){
 					   alert(response.error);
 				}else{
@@ -54,21 +54,25 @@
 	
 	$('.masterTooltip').hover(function(){
 		// Hover over code
-		var title = $(this).attr('title');
-		$(this).data('tipText', title).removeAttr('title');
+		var title = $(this).attr("title");
+		$(this)
+		    .data('tipText', title)
+			.removeAttr("title");
+			
 		$('<p class="toolTip"></p>')
-		.text(title)
-		.appendTo('body')
-		.fadeIn('slow');
+		  .text(title)
+		  .appendTo('body')
+	    	.fadeIn('slow');
 	}, function() {
 		//Hover out code
 		$(this).attr('title',$(this).data('tipText'));
 		$('.toolTip').remove();
 	}).mousemove(function(e) {
-		var mousex = e.pageX + 20; //Get x coordinate
-		var mousey = e.pageY + 10; //Get x coordinate
 		$('.tooltip')
-		.css({ top: mousey, left: mousex })
+		.css("top", (e.pageY - 10) + "px") //Get x coordinate
+		.css("left", (e.pageY + 20) + "px"); //Get x coordinate
+		
+		
 	});
 	
 	
@@ -107,6 +111,29 @@
 	});
 });
 
+ /*
+	===============================================
+     Display Username========================= 
+	*/
+$.getJSON("xhr/check_login.php", function(data){
+	   console.log(data);
+	   $.each(data, function(key, val){
+		   console.log(val.first_name);
+		   $(".useid").html("Welcome User: "+ val.first_name);
+	   })
+});
+ 
+ /*
+	===============================================
+     Go to profile page========================= 
+	*/
+
+$('.profilebtn').on('click',function(e) {
+	e.preventDefault();
+	window.location.assign('profile.html');
+});
+
+
   /*
 	===============================================
      Go to projects page========================= 
@@ -138,6 +165,26 @@ $('.modalClick').on('click', function(event){
 	.fadeOut();
 }); 
 
+ /*
+	===============================================
+     Go to projects page========================= 
+	*/
+
+$('.addbtn').on('click',function(e) {
+	e.preventDefault();
+	window.location.assign('add.html');
+});
+
+ /*
+	===============================================
+     Go to projects page========================= 
+	*/
+
+$('.dashboard').on('click',function(e) {
+	e.preventDefault();
+	window.location.assign('admin.html');
+}); 
+
 /*
 	===============================================
     Fading Status Option========================= 
@@ -149,39 +196,44 @@ $('.mystatus').mouseover(function() {
 
 $('.mystatus').mouseover(function() {
 	$(this).fadeTo(100, .1);
-});  
+}); 
 
 /*
 	===============================================
-    Date Picker========================= 
+    New Project========================= 
 	*/
+
+$('#addbutton').on('click', function() {
 	
-	$(".mydatepicker" ).datepicker();
-		
+	var projName = $('#projectName').val(),
+	projDesc = $('#projectDescription').val(),
+	projDue = $('#projectDueDate').val(),
+	status = $('input[name = "status"]:checked').prop("id");
+	
+	$.ajax({
+		url: "xhr/new_project.php",
+		type: "post",
+		dataType: "json",
+		data: {
+			projectName: projName,
+			projectDescription: projDesc,
+			dueDate: projDue,
+			status: status
+		},
+		success: function(response) {
+			 console.log('Testing for success');
+			 
+			 if(response.error) {
+				  alert(response.error);
+			 }else {
+				 window.location.assign("projects.html");
+			 };
+		}
+	});
+});
 
 /*
 	===============================================
-    Buttons========================= 
-	*/
-	
-	$("input[type=submit], a, button")
-	     .button()
-		 .click(function( event ) {
-			 event.preventDefault();
-		 });
-		 
-		 
-/*
-	===============================================
-    Sortable========================= 
-	*/
-	
-	$("#sortable" ).sortable();
-	$("#sortable" ).disableSelection();
-	
-
-
-/*	===============================================
     Tabbed Accordion for projects========================= 
 	*/
 	
